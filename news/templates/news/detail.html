@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{article.title}}</title>
+	{% load static %}
+	<meta charset = "utf-8">
+	<link rel = "stylesheet" type = "text/css" href = "{% static 'news/style.css' %}">
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Baloo+2">
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Ubuntu">
+
+	<script>
+		function validate(){
+			let auth_name = document.forms["form"]["author"].value;
+			let text = document.forms["form"]["text"].value;
+			if(auth_name.length == 0 || text.length == 0){
+				alert('Вы не заполнили форму для отправления комментария');
+				return false;
+			}
+		}
+
+		function goIndex(){
+			document.location.href = ("{% url 'news:index' %}");
+		}
+	</script>
+</head>
+<body>
+	
+	<header style = "position: sticky; top: 0; left: 0; box-shadow: 2px 2px 40px gray; height: 67px; font-size: 33pt;"> 
+		<div class = "logo trans" id = "logo" onclick = "goIndex()">Teacher Blog</div>
+	</header>
+	<!--<script type="text/javascript">
+		let logo = document.getElementById("logo");
+		function reload(){ location.reload() }
+		logo.addEventListener("click", reload);
+	</script>-->
+	<center><h1 style = "margin-top: 15px; font-family: 'Ubuntu'"> {{article.title}} </h1></center>
+	<div class = "art">
+		<p style = "white-space: pre-wrap; font-family: 'Ubuntu'">
+		{{article.text}}</p>
+		<br><em style = "float: right;">{{ article.pub_date }}</em><br>
+	</div>
+	<hr>
+	<h2 class = "comm-header">Комментарии</h2>
+
+	{% if comments %}
+		{% for comm in comments %}
+
+			<div class = "comment">
+				
+				<strong> {{comm.author}} </strong><br><br>
+				<span style = "margin-left: 50px; border-left: solid 3px rgb(73, 209,33); padding-left: 10px">{{ comm.text }}</span><br>
+				<i style = "font-size: 13px; float: right;"> {{comm.pub_date}} </i><br>
+
+			</div>
+			<hr>
+
+		{% endfor %}
+	{% else %}
+		<h2 style = "padding: 30px; /*padding-bottom: 20px;*/ border-bottom: dotted 3px rgb(73, 209,33);" >Здесь  пока нет комментариев, вы можете стать первым!</h2>
+	{% endif %}
+	<br>
+	<form action = "{% url 'news:leave_comment' article.id%}" method = "POST" name = "form" id = "form" onsubmit="return validate()">
+		{% csrf_token %}
+		&nbsp;<input name = "author" placeholder="Ваше имя" style = "margin-bottom: 20px; margin-right: 30px" id = "author"><span style = "font-family: 'Ubuntu';" id = "namef"></span> 
+		<br>
+		&nbsp;<textarea name = "text" cols = "40" rows = "15" placeholder="Текст комментария" style = "margin-bottom: 10px; margin-right: 30px" id = "text"></textarea> <span style = "font-family: 'Ubuntu';" id = "textf"></span> <br>
+		&nbsp;<button type = "submit">Оставить комментарий</button>
+	</form>
+	<br>
+
+</body>
+</html>

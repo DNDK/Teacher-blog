@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load static %}
+	<title>NAME OF SITE</title>
+	<meta charset = "utf-8"><link rel = "stylesheet" type = "text/css" href = "{% static 'news/style.css' %}">
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Baloo+2">
+	<link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Encode+Sans+Condensed">
+	<link rel = "shorcut icon" href = "{% static 'news/images/apple.png' %}" type = "image/png">
+</head>
+<body>
+	<style>
+		html{
+			background-image: "{% static 'news/images/bg.png' %}";
+			/* background pattern from Toptal Subtle Patterns */
+		}
+	</style>
+
+	<header style = "position: sticky; top: 0; left: 0; box-shadow: 2px 2px 40px gray; height: 67px; font-size: 33pt;"> 
+		<div class = "logo trans" id = "logo" onclick = "goIndex()">Teacher Blog</div>
+	</header>
+
+	<script type="text/javascript">
+		let logo = document.getElementById("logo");
+		function reload(){ location.reload() }
+		logo.addEventListener("click", reload);
+	</script>
+
+	{% if lastest_articles_list %}
+		{% for article in lastest_articles_list %}
+			<div class = "article">
+				<h3><a href = "{% url 'news:detail' article.id %}">
+						{{article.title}}
+					</a>
+					<h4 style = "float: right; font-family: 'Times New Roman';"> {{article.pub_date}} </h4>
+				</h3>
+			</div>
+			<hr>
+			
+		{% endfor %}
+	{% else %}
+		<h2>
+			Пока нет статей :(
+		</h2>
+	{% endif %}
+</body>
+</html>

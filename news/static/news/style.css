@@ -1,0 +1,65 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	background-image: url('images/bg.png');
+}
+
+header{
+	background-color: rgb(73, 209, 33);
+	height: 40px;
+	width: 100%;
+	color: white;
+	font-size: 20pt;
+	font-family: 'Baloo 2';
+	font-weight: bold;
+}
+
+/* INDEX.HTML */
+.logo{
+	display: inline-block;
+	margin-left: 10px;
+}
+.trans{
+	transition: 1s;
+}
+.logo:hover{
+	text-shadow: 10px 10px 35px white;
+	cursor: pointer;
+}
+
+.article{
+	font-family: 'Encode Sans Condensed';
+	display: block;
+	margin: 20px;
+}
+
+.article a{
+	text-decoration: none;
+	border-bottom: dotted 1px rgb(73, 209, 33);
+	color: rgb(88,228,31);
+}
+
+/* DETAIL.HTML */
+
+.art{
+	margin: 20px;
+	font-family: 'Ubuntu';
+}
+
+
+.comm-header{
+	border-bottom: dotted 3px rgb(73,209,33);
+	padding: 15px;
+}
+
+.comment{
+	margin: 20px;
+	font-family: 'Arial';
+}
+
+form{
+	margin: 20px;
+}
